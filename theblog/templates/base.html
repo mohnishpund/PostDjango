@@ -1,0 +1,105 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{% block title %} Add Post{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="{% url 'home'%}">SHOW POSTS</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+    {% if user.is_authenticated %}
+
+       <!--category menu code-->
+       {% if cat_menu %}
+       <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown">
+              Categories
+            </a>
+          <div class="dropdown-menu">
+
+
+            {% for item in cat_menu %}
+            <a class="dropdown-item" href="{% url 'category' item|slugify %}">{{ item }}</a>
+            {% endfor %}
+
+          </div>
+        </li>
+        {% else %}
+  
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'category-list'%}">Categories</a>
+            </li>
+
+           {% endif %}
+
+      
+
+
+           <li class="nav-item">
+             <a class="nav-link active" href="{% url 'add_post'%}">Add Post</a>
+           </li>
+           <li class="nav-item">
+             <a class="nav-link active" href="{% url 'add_category'%}">Add Category</a>
+           </li>
+            <li class="nav-item">
+             <a class="nav-link active" href="{% url 'feedback'%}">FeedBack</a>
+           </li>
+    {% else %}
+            <li class="nav-item">
+             <a class="nav-link active" href="{% url 'register'%}">Register</a>
+            </li>
+
+            <li class="nav-item">
+             <a class="nav-link active" href="{% url 'login'%}">Login</a>
+            </li>
+
+    {% endif %}
+
+
+
+         </ul>
+    {% if user.is_authenticated %}
+       
+         <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle active" href="#" id="navbardrop" data-toggle="dropdown">
+               {{ user.first_name }}
+               {{ user.last_name }}
+               </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'edit_profile' %}">Edit Settings</a>
+                    {% if user.profile.id %}
+                      <a class="dropdown-item" href="{% url 'edit_profile_page' user.profile.id %}">Edit Profile Page</a>
+                      <a class="dropdown-item" href="{% url 'show_profile_page' user.profile.id %}">Show Profile Page</a>
+                      {% else %}
+                      <a class="dropdown-item" href="{% url 'create_profile_page' %}">Create Profile Page</a>
+                    {% endif %}
+                     <div class="dropdown-divider"></div> 
+                    <a class="dropdown-item" href="{% url 'logout'%}">Logout</a>
+                </div>
+            </li>
+         </ul>
+    {% endif %} 
+       </div>
+  </nav>
+  <br/>
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+</body>
+</html> 

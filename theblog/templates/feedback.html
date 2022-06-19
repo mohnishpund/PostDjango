@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Feedback!{% endblock %}
+{% block content %}
+
+
+
+<center><h2>SEND FEEDBACK</h2></center>
+<hr/>
+<br/>
+<center><h1>Review Information: </h1>
+    <strong>Name: </strong>{{ name }}<br/>
+    <strong>Text: </strong>{{ text }}<br/>
+</center>
+
+
+
+{% if user.is_authenticated %}
+    <h1>Send Feedback</h1>
+    <br/><br/>
+    <div class="form-group">
+        <form method="POST">
+            {% csrf_token %} 
+            <input type="text" class="form-control" placeholder="Enter Your Name" name="name">
+            <br/>
+            <input type="textarea" class="form-control" placeholder="Subject" name="text">
+            <br/>
+            <button class="btn btn-primary">send</button>
+    </div>
+
+
+
+
+{% else %}
+
+None
+
+{% endif %}
+
+{% endblock %}
