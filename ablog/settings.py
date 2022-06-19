@@ -149,6 +149,7 @@ EMAIL_HOST_PASSWORD = 'Pund@123'
 EMAIL_USE_TLS = True
 #EMAIL_USE_SSL = False
 
+django_heroku.settings(locals())
 
 
 LOGIN_REDIRECT_URL = 'home'
@@ -162,4 +163,3 @@ LOGOUT_REDIRECT_URL = 'home'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-django_heroku.settings(locals())
