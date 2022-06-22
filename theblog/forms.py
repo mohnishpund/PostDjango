@@ -60,8 +60,8 @@ class CommentForm(forms.ModelForm):
 class FeedbackForm(forms.ModelForm):
     class Meta:
         model = Feedback
-        fields = ('name', 'text')
+        fields = ('name', 'body')
         widgets = {
                    'name': forms.TextInput(attrs={'class': 'form-control'}),
-                   'text': forms.Textarea(attrs={'class': 'form-control'}),
+                   'body': forms.Textarea(attrs={'class': 'form-control'}),
            }                               

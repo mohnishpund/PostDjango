@@ -100,29 +100,8 @@ class DeletePostView(DeleteView):
 
 
 class FeedbackPostView(CreateView):
-	model = Post
+	model = Feedback
 	form_class = FeedbackForm
 	template_name = 'feedback.html'
 	
-def Feedback(request):
-    if request.method == "POST":
-    	name = request.POST['name']
-    	text = request.POST['text']
-    	
 
-    	# send an mail
-    	Feedback = "Name: " +  name + "Text: " +  text
-
-
-    	send_mail(
-    	    name, # subject
-    	    feedback, # from Email
-    	    ['mohishpund2020@gmail.com'], # To Email
-        	)
-
-    	return render(request, 'feedback.html', {
-    		'name': name, 
-    		'text': text,
-    		})
-    else:
-    	return render(request, 'feedback.html', {})
